@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "ES2021",
-    "module": "ES2020",
-    "lib": ["ES2021", "DOM", "DOM.Iterable", "WebWorker"],
+    "target": "esnext",
+    "module": "esnext",
     "sourceMap": true,
     "outDir": "lib",
     "resolveJsonModule": true,

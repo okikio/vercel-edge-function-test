@@ -2,12 +2,22 @@ export const config = {
   runtime: 'edge', // this is a pre-requisite
 };
 
-import * as esbuild from 'esbuild-wasm';
-// @ts-ignore
-import wasmModule from 'esbuild-wasm/esbuild.wasm?module';
 
-// import { TextEncoder as Encoder, TextDecoder } from 'text-encoding-shim';
-// const TextEncoder = Encoder as unknown as TextEncoder;
+globalThis.performance = globalThis.performance ?? { now: Date.now } as Performance;
+
+import { TextEncoder as Encoder, TextDecoder as Decoder } from 'text-encoding-shim';
+
+type EncoderType = typeof globalThis.TextEncoder;
+type DecoderType = typeof globalThis.TextDecoder;
+
+globalThis.TextEncoder = globalThis.TextEncoder ?? Encoder as unknown as EncoderType;
+globalThis.TextDecoder = globalThis.TextDecoder ?? Decoder as unknown as DecoderType;
+
+globalThis.location = globalThis.location ?? new URL("http://localhost:3000/") as unknown as Location;
+
+import * as esbuild from 'esbuild-wasm';
+// @ts-ignore Vercel Edge Function don't import WASM Moules that match `wasm instanceof WebAssembly.Module`
+// import wasmModule from 'esbuild-wasm/esbuild.wasm?module';
 
 export const inputModelResetValue = [
   'export default { complex: { boolean: true } }',
@@ -16,15 +26,15 @@ export const inputModelResetValue = [
 export default async function handler(req: Request) {
   try {
     await esbuild.initialize({
-      wasmModule,
+      wasmURL: 'node_modules/esbuild-wasm/esbuild.wasm',
       worker: false,
     });
 
     const start = Date.now();
     const url = new URL(req.url);
     const result = await esbuild.build({
-      entryPoints: {
-        '/index.tsx': inputModelResetValue,
+      stdin: {
+        'contents': inputModelResetValue,
       },
       treeShaking: true,
 
@@ -40,6 +50,7 @@ export default async function handler(req: Request) {
       minify: true,
 
       platform: 'browser',
+      write: false,
     });
 
     const end = Date.now();
@@ -49,6 +60,7 @@ export default async function handler(req: Request) {
       JSON.stringify({
         query: url.search,
         input: inputModelResetValue,
+        output: result,
         rawTime: (end - start) / 1000,
       }),
       {

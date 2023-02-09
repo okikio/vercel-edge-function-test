@@ -2,17 +2,21 @@ lockfileVersion: 5.4
 
 specifiers:
   esbuild-wasm: ^0.17.6
+  text-encoding-shim: ^1.0.5
   typescript: ^4.9.5
   vercel: ^28.15.3
   vite: ^4.1.0
+  vite-plugin-vercel: ^0.1.6
 
 dependencies:
   esbuild-wasm: 0.17.6
 
 devDependencies:
+  text-encoding-shim: 1.0.5
   typescript: 4.9.5
   vercel: 28.15.3
   vite: 4.1.1
+  vite-plugin-vercel: 0.1.6_vite@4.1.1
 
 packages:
 
@@ -20,6 +24,10 @@ packages:
     resolution: {integrity: sha512-J5AIf3vPj3UwXaAzb5j1xM4WAQDX3EMgemF8rjCP3SoW09LfRKAXQKt6CoVYl230P6iWdRcBbnLDDdnqWxZSCA==}
     dependencies:
       regenerator-runtime: 0.13.11
+    dev: true
+
+  /@brillout/libassert/0.5.8:
+    resolution: {integrity: sha512-u/fu+jTRUdNdbLONGq1plCfh+k2/XjSbGVTfnF3rHnSPZd+ABWp0XinR5ifrFkyGOzMbzv8IiQ44lZ4U6ZGrGA==}
     dev: true
 
   /@cspotcode/source-map-support/0.8.1:
@@ -1428,6 +1436,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /text-encoding-shim/1.0.5:
+    resolution: {integrity: sha512-H7yYW+jRn4yhu60ygZ2f/eMhXPITRt4QSUTKzLm+eCaDsdX8avmgWpmtmHAzesjBVUTAypz9odu5RKUjX5HNYA==}
+    dev: true
+
   /time-span/4.0.0:
     resolution: {integrity: sha512-MyqZCTGLDZ77u4k+jqg4UlrzPTPZ49NDlaekU6uuFaJLzPIN1woaRXCbGeqOfxwc3Y37ZROGAJ614Rdv7Olt+g==}
     engines: {node: '>=10'}
@@ -1542,6 +1554,19 @@ packages:
       - supports-color
     dev: true
 
+  /vite-plugin-vercel/0.1.6_vite@4.1.1:
+    resolution: {integrity: sha512-/Bdweik66AWNiqmwuQeW0I1qgrwivJCbo0AwBSx9xt4Cy2K24XoL8eZ+KDEDjj3a6VQATKlgKFkr4vKLFkfscg==}
+    peerDependencies:
+      vite: ^3.0.0
+    dependencies:
+      '@brillout/libassert': 0.5.8
+      '@vercel/routing-utils': 2.1.8
+      esbuild: 0.16.17
+      fast-glob: 3.2.12
+      vite: 4.1.1
+      zod: 3.20.6
+    dev: true
+
   /vite/4.1.1:
     resolution: {integrity: sha512-LM9WWea8vsxhr782r9ntg+bhSFS06FJgCvvB0+8hf8UWtvaiDagKYWXndjfX6kGl74keHJUcpzrQliDXZlF5yg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -1607,4 +1632,8 @@ packages:
   /yn/3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
+    dev: true
+
+  /zod/3.20.6:
+    resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
     dev: true
